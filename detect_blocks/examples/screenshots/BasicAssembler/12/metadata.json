@@ -1,0 +1,32 @@
+{
+    "block_id": "BasicAssembler",
+    "total_stages": 4,
+    "stage": 2,
+    "model_path": "models\\BasicAssembler\\2.obj",
+    "screenshot_original_path": "screenshots\\BasicAssembler\\12\\screenshot_original.png",
+    "screenshot_pink_path": "screenshots\\BasicAssembler\\12\\screenshot_pink.png",
+    "screenshot_mask_path": "screenshots\\BasicAssembler\\12\\screenshot_mask.png",
+    "sun_position": 1,
+    "orientation": {
+        "forward": {
+            "x": -0.15643446504023087,
+            "y": 0.0,
+            "z": -0.9876883405951378
+        },
+        "up": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right": {
+            "x": 0.9876883405951378,
+            "y": 0.0,
+            "z": -0.15643446504023087
+        },
+        "position": {
+            "x": 0.0,
+            "y": 1.65,
+            "z": -5.360306999616327
+        }
+    }
+}

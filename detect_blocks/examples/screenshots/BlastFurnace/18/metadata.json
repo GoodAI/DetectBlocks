@@ -1,0 +1,32 @@
+{
+    "block_id": "BlastFurnace",
+    "total_stages": 4,
+    "stage": 3,
+    "model_path": "models\\BlastFurnace\\3.obj",
+    "screenshot_original_path": "screenshots\\BlastFurnace\\18\\screenshot_original.png",
+    "screenshot_pink_path": "screenshots\\BlastFurnace\\18\\screenshot_pink.png",
+    "screenshot_mask_path": "screenshots\\BlastFurnace\\18\\screenshot_mask.png",
+    "sun_position": 0,
+    "orientation": {
+        "forward": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+        },
+        "up": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "right": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "position": {
+            "x": 0.0,
+            "y": 1.65,
+            "z": -7.5
+        }
+    }
+}

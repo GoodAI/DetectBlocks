@@ -1,0 +1,16 @@
+BasicAssembler 0
+BasicAssembler 1
+BasicAssembler 2
+BasicAssembler 3
+GratedStairs 0
+GratedStairs 1
+GratedStairs 2
+GratedStairs 3
+LargeDecoy 0
+LargeDecoy 1
+LargeDecoy 2
+LargeDecoy 3
+LargeExhaustPipe 0
+LargeExhaustPipe 1
+LargeExhaustPipe 2
+LargeExhaustPipe 3
