@@ -65,22 +65,22 @@ class AAESimilarityDetector(SimilarityDetector):
 
         checkpoint_file_basename = U.get_checkpoint_basefilename(
             log_dir, latest=at_step, joint=True)
-        if not tf.train.checkpoint_exists(checkpoint_file_basename):
+        if not tf.compat.v1.train.checkpoint_exists(checkpoint_file_basename):
             checkpoint_file_basename = U.get_checkpoint_basefilename(
                 log_dir, latest=at_step, joint=False)
 
-        with tf.variable_scope(cfg_name):
+        with tf.compat.v1.variable_scope(cfg_name):
             dataset = factory.build_dataset(dataset_path, args)
             queue = factory.build_queue(dataset, args)
             encoder = factory.build_encoder(queue.x, args)
-            restore_saver = tf.train.Saver(
+            restore_saver = tf.compat.v1.train.Saver(
                 save_relative_paths=True, max_to_keep=100)
 
-        gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
-        config = tf.ConfigProto(gpu_options=gpu_options)
+        gpu_options = tf.compat.v1.GPUOptions(per_process_gpu_memory_fraction=0.8)
+        config = tf.compat.v1.ConfigProto(gpu_options=gpu_options)
 
-        sess = tf.Session(config=config)
-        sess.run(tf.global_variables_initializer())
+        sess = tf.compat.v1.Session(config=config)
+        sess.run(tf.compat.v1.global_variables_initializer())
         restore_saver.restore(sess, checkpoint_file_basename)
 
         return encoder, sess
