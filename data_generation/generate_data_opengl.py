@@ -2,6 +2,7 @@ import argparse
 import cv2
 import numpy as np
 import os
+import pandas as pd
 from tqdm import tqdm
 
 from auto_pose.meshrenderer import meshrenderer_phong
@@ -21,10 +22,10 @@ def main():
     clip_near = 10
     clip_far = 10000
 
-    views_txt = np.loadtxt(arguments.model_pose_list, delimiter=' ', dtype=str)
-    model_paths = views_txt[:, 0]
-    scr_names = [line[1] + '_' + line[2] for line in views_txt]
-    model_poses = np.array(views_txt[:, 3:], dtype=np.float32)
+    df = pd.read_csv(arguments.model_pose_list, delimiter=" ", header=None, dtype=str)
+    model_paths = list(df[0])
+    scr_names = df[1] + "_" + df[2]
+    model_poses = np.array(df.iloc[:, 3:], dtype=np.float32)
     obj_ids = list(set(model_paths))
 
     train_x_dir = os.path.join(arguments.output_dir, "opengl", "train_x")

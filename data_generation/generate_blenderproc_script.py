@@ -1,6 +1,7 @@
 import argparse
 import numpy as np
 import os
+import pandas as pd
 import shutil
 from auto_pose.meshrenderer.pysixd import transform as T
 
@@ -12,10 +13,10 @@ def main():
     parser.add_argument("--output_dir", type=str, required=True)
     arguments = parser.parse_args()
 
-    views_txt = np.loadtxt(arguments.model_pose_list, delimiter=' ', dtype=str)
-    model_paths = views_txt[:, 0]
-    model_names = views_txt[:, 1]
-    model_poses = np.array(views_txt[:, 3:], dtype=np.float32)
+    df = pd.read_csv(arguments.model_pose_list, delimiter=" ", header=None, dtype=str)
+    model_paths = list(df[0])
+    model_names = list(df[1])
+    model_poses = np.array(df.iloc[:, 3:], dtype=np.float32)
 
     poses_dict = {}
     model_names_dict = {}
