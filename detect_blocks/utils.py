@@ -9,7 +9,7 @@ from auto_pose.meshrenderer.pysixd import transform as T
 
 
 def posix(path_string):
-    return path_string.replace('\\', '/')
+    return path_string.replace('\\', os.sep)
 
 
 def dataset_from_metadata(dataset_path, metadata_filename, pink_background):
