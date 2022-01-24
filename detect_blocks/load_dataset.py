@@ -35,7 +35,7 @@ def main():
     group_ids = eval(args.get('Paths', 'MODEL_PATH'))
     model_list = eval(args.get('Paths', 'MODEL_LIST'))
     num_groups = len(group_ids)
-    group_size = len(model_list) / num_groups
+    group_size = int(len(model_list) / num_groups)
 
     model_names = []
     for model_path in model_list:
@@ -53,20 +53,22 @@ def main():
                                          current_config_hash + '.tfrecord')
         
         if not os.path.exists(current_file_name):
-            writer = tf.python_io.TFRecordWriter(current_file_name)
+            writer = tf.io.TFRecordWriter(current_file_name)
             print('Generating tfrecord for model group {}'.format(group_id))
         else:
-            print('TFrecord exists for model group {}'.format(group_id))
+            print('TFrecord exists for model group {}\n {}'.format(group_id, current_file_name))
             continue
 
         for j in range(group_size):
             print('Loading images for model {}'.format(
                 model_names[group_size*i+j]))
             for k in tqdm(range(args.getint('Dataset', 'NOOF_TRAINING_IMGS'))):
-                train_x = cv2.imread(os.path.join(
+                img_path = os.path.join(
                     arguments.blenderproc_data_path,
                     'output/{model_name}/rgb_{k:04d}.png'.format(
-                        model_name=model_names[group_size*i+j], k=k)))
+                        model_name=model_names[group_size*i+j], k=k))
+                train_x = cv2.imread(img_path)
+
                 train_x = train_x.astype(np.uint8)
                 mask_x = (train_x[:, :, 0] == 0) & \
                          (train_x[:, :, 1] == 0) & \
@@ -77,9 +79,9 @@ def main():
                         model_name=model_names[group_size*i+j], k=k)))
                 train_y = train_y.astype(np.uint8)
 
-                train_x_bytes = train_x.tostring()
-                mask_x_bytes = mask_x.tostring()
-                train_y_bytes = train_y.tostring()
+                train_x_bytes = train_x.tobytes()
+                mask_x_bytes = mask_x.tobytes()
+                train_y_bytes = train_y.tobytes()
 
                 feature = {}
                 feature['train_x'] = tf.train.Feature(
