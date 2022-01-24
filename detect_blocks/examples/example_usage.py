@@ -2,7 +2,7 @@ import cv2
 import json
 import numpy as np
 
-from auto_pose.detect_blocks.detectors.aae_similarity_detector import \
+from detect_blocks.detectors.aae_similarity_detector import \
         AAESimilarityDetector
 
 
