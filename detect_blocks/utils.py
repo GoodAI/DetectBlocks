@@ -125,13 +125,19 @@ def render_images_from_metadata(dataset_path, metadata_filename,
 
             data_dict[block_id][stage] = []
 
+            block_valid = True
             for rendered_image in stage_data:
                 rendered_image = center_object(rendered_image)
+                if rendered_image.shape[0] < 1 or rendered_image.shape[1] < 0:
+                    block_valid = False
+                    break
                 rendered_image = cv2.resize(rendered_image, (128, 128))
                 if pink_background:
                     rendered_image = \
                         fill_background(rendered_image, [150, 0, 150])
                 data_dict[block_id][stage].append(rendered_image / 255.0)
+            if not block_valid:
+                print(block_id, stage, R, t)
 
     return data_dict
 
