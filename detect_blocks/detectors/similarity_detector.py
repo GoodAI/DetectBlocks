@@ -53,11 +53,13 @@ class SimilarityDetector(object):
             rendered_imgs = [self.render_in_pose(model_path, pose)]
         similarity_score = self.image_group_similarity(screenshot_imgs,
                                                        rendered_imgs)
-        cv2.imwrite('/tmp/scrsh_{}.png'.format(np.random.uniform()),
-                    screenshot_imgs[0])
-        cv2.imwrite('/tmp/render_{}.png'.format(np.random.uniform()),
-                    rendered_imgs[0])
-        return similarity_score > 0.5
+        img_id = np.random.uniform()
+        cv2.imwrite('/tmp/{}_scrsht.png'.format(img_id),
+                    screenshot_imgs[0]*255)
+        cv2.imwrite('/tmp/{}_render.png'.format(img_id),
+                    rendered_imgs[0]*255)
+
+        return similarity_score
 
     def render_in_pose(self, model_path, pose):
         renderer = meshrenderer_phong.Renderer(
