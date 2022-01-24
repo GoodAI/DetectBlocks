@@ -144,10 +144,8 @@ def evaluate_on_dataset(arguments):
     for i in range(n_datasets):
         for j, thresh in enumerate(thresholds):
             accuracies[i][j] = np.mean((predictions[i] > thresh) == labels[i])
-            precisions[i][j] = np.sum(predictions[i][labels[i]] > thresh) / \
-                float(np.sum(predictions[i] > thresh))
-            recalls[i][j] = np.sum(predictions[i][labels[i]] > thresh) / \
-                float(np.sum(labels[i]))
+            precisions[i][j] = np.sum(predictions[i][labels[i]] > thresh) / (float(np.sum(predictions[i] > thresh)) + 1e-6)
+            recalls[i][j] = np.sum(predictions[i][labels[i]] > thresh) / (float(np.sum(labels[i])) + 1e-6)
 
     for i in range(n_datasets):
         accuracy = accuracies[i][int(n_thresholds / 2)]
