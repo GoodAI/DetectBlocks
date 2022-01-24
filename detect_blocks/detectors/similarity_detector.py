@@ -81,6 +81,27 @@ class SimilarityDetector(object):
         ]
         return cv2.resize(rendered_image, (128, 128)) / 255.0
 
+    def render_in_pose_generator(self, model_paths, poses):
+        renderer = meshrenderer_phong.Renderer(
+            model_paths, self.antialiasing, vertex_scale=self.vertex_scale,
+            vertex_tmp_store_folder='/tmp')
+        for i, pose in enumerate(poses):
+            R = pose[:3, :3]
+            t = pose[:3, 3]
+            rendered_image, _ = renderer.render(
+                i, self.w, self.h, self.K, R, t,
+                near=self.clip_near, far=self.clip_far)
+            mask = cv2.cvtColor(rendered_image, cv2.COLOR_BGR2GRAY)
+            left, top, width, height = cv2.boundingRect(mask)
+            bbx_side = int(max(width, height) * 1.2)
+            left += width // 2 - bbx_side // 2
+            top += height // 2 - bbx_side // 2
+            rendered_image = rendered_image[
+                max(0, top):min(top + bbx_side, rendered_image.shape[0]),
+                max(0, left):min(left + bbx_side, rendered_image.shape[1])
+            ]
+            yield cv2.resize(rendered_image, (128, 128)) / 255.0
+
     def render_principal_views(self, model_path):
         renderer = meshrenderer_phong.Renderer(
             [model_path], self.antialiasing, vertex_scale=self.vertex_scale,
