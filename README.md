@@ -6,13 +6,13 @@
 sudo apt install libassimp-dev assimp-utils
 sudo apt install libglfw3-dev libglfw3
 ```
-2. Create an Anaconda environment from the file `aae.yml`:
+2. Create an Anaconda environment from the file `env.yml`:
 ```
-conda env create -f aae.yml
+conda env create -f env.yml
 ```
 3. Activate the environment:
 ```
-conda activate aae
+conda activate env 
 ```
 4. Clone the Augmented AutoEncoder repo (https://github.com/DLR-RM/AugmentedAutoencoder.git) and checkout the `multipath` branch.
 5. Install the `auto_pose` package by running `pip install .` in the root directory of this repo.
